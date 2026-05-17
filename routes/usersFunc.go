@@ -39,12 +39,12 @@ func login(context *gin.Context){
 		return
 	}
 
-	token, err := utils.GenerateToken(user.Email, user.ID)
+	
+	token, err := utils.GenerateToken(user.Email, user.ID, user.Role)
 	if err != nil{
 		context.JSON(http.StatusInternalServerError, gin.H{"message": "Unauthorize"})
 		return
 	}
-
 
 	context.JSON(http.StatusOK, gin.H{"message": "Log in succesful", "token": token})
 }

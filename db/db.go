@@ -7,7 +7,7 @@ import (
 )
  
 var DB *sql.DB
-
+ 
  
 func InitDB() {
     var err error
@@ -23,18 +23,20 @@ func InitDB() {
 }
  
 func createTable() {
+    
     createUsers := `
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        role TEXT NOT NULL DEFAULT 'user'
     )
     `
     _, err := DB.Exec(createUsers)
     if err != nil {
         panic("Could not create users table.")
     }
-
+ 
     createEventsTable := `
     CREATE TABLE IF NOT EXISTS events (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,7 +54,7 @@ func createTable() {
     if err != nil {
         panic("Could not create events table.")
     }
-
+ 
     RegisterTable := `
     CREATE TABLE IF NOT EXISTS registration(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
